@@ -1,14 +1,14 @@
-=== Inspector ===
-Contributors: rilwis
-Donate link: http://www.deluxeblogtips.com/donate
-Tags: meta, option, custom field, admin screen, user information, inspector, debug, debugging tool, debugging
-Requires at least: 3.0
-Tested up to: 3.5.1
-Stable tag: 1.2.6
+# Inspector
+**Contributors:** [rilwis](http://www.deluxeblogtips.com)
+**Donate link:** http://www.deluxeblogtips.com/donate
+**Tags:** meta, option, custom field, admin screen, user information, inspector, debug, debugging tool, debugging
+**Requires at least:** 3.0
+**Tested up to:** 3.5.1
+**Stable tag:** 1.2.6
 
 Inpect hidden information of your WordPress websites for debugging
 
-== Description ==
+## Description
 
 The **Inspector** plugin is a tool for developers, which allows us to see hidden information for debugging. The information includes option value, post meta value, [current admin screen information](http://www.deluxeblogtips.com/2012/01/get-admin-screen-information.html), current user information, admin menu items and registered scripts and styles.
 
@@ -24,56 +24,52 @@ The **Inspector** plugin is a tool for developers, which allows us to see hidden
 
 [Project Page](http://www.deluxeblogtips.com/inspector) | [Donate](http://www.deluxeblogtips.com/donate)
 
-== Installation ==
+## Installation
 
 1. Unzip the download package
 1. Upload `inspector` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
-== Frequently Asked Questions ==
+## Changelog
 
-== Screenshots ==
-
-== Changelog ==
-
-= 1.2.6 =
+### 1.2.6
 * Add screen information in help tab
 
-= 1.2.5 =
+### 1.2.5
 
 * Add debug function
 
-= 1.2.3 =
+### 1.2.3
 
 * Fix duplicate entries
 * Load class only in the back-end
 
-= 1.2.2 =
+### 1.2.2
 
 * Fix adding menu
 * Change textdomain to simple string
 * Fix CSS
 
-= 1.2.1 =
+### 1.2.1
 
 * Inspect post meta for all post types
 
-= 1.2 =
+### 1.2
 
 * Add inspector for post meta
 * Update jQuery UI to 1.8.7 with Smoothness theme
 
-= 1.1 =
+### 1.1
 
 * Add autocomplete feature for option name input box
 * Use nonces via localizing
 
-= 1.0.2 =
+### 1.0.2
 
 * Show nonces using wp_nonce_field()
 * Add document for JS
 
-= 1.0.1 =
+### 1.0.1
 
 * Use sanitize_text_field() to sanitize option name
 * Improve code of checking admin referrer

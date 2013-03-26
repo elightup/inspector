@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Inspector
-Plugin URI: http://www.deluxeblogtips.com
+Plugin URI: http://www.deluxeblogtips.com/inspector/
 Description: Inpect hidden information of your WordPress websites for debugging
-Version: 1.2.6
+Version: 1.2.8
 Author: Rilwis
 Author URI: http://www.deluxeblogtips.com
 */

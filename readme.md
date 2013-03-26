@@ -1,10 +1,6 @@
 # Inspector
 **Contributors:** [rilwis](http://www.deluxeblogtips.com)
 **Donate link:** http://www.deluxeblogtips.com/donate
-**Tags:** meta, option, custom field, admin screen, user information, inspector, debug, debugging tool, debugging
-**Requires at least:** 3.0
-**Tested up to:** 3.5.1
-**Stable tag:** 1.2.6
 
 Inpect hidden information of your WordPress websites for debugging
 
@@ -32,7 +28,17 @@ The **Inspector** plugin is a tool for developers, which allows us to see hidden
 
 ## Changelog
 
+### 1.2.8
+
+* Fix showing data via ajax
+* Use jQueryUI CDN instead
+
+### 1.2.7
+
+* Fix include warning
+
 ### 1.2.6
+
 * Add screen information in help tab
 
 ### 1.2.5

@@ -1,7 +1,4 @@
 <?php
-
-include RWI_DIR . 'inc/updater.php';
-
 if ( ! class_exists( 'RWI_Backend' ) )
 {
 	class RWI_Backend
@@ -179,7 +176,7 @@ if ( ! class_exists( 'RWI_Backend' ) )
 				return;
 
 			// jQuery autocomplete
-			wp_enqueue_style( 'jquery-ui-autocomplete', RWI_CSS . 'jquery-ui-autocomplete.css' );
+			wp_enqueue_style( 'jquery-ui', 'http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css' );
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
 
 			// Plugin script and style
@@ -202,7 +199,7 @@ if ( ! class_exists( 'RWI_Backend' ) )
 		{
 			global $wpdb;
 
-			check_admin_referer( 'inspector-autocomplete' );
+			check_ajax_referer( 'inspector-autocomplete' );
 
 			$term = sanitize_text_field( $_POST['term'] );
 			$type = sanitize_text_field( $_POST['type'] );

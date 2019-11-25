@@ -1,6 +1,4 @@
 # Inspector
-**Contributors:** [rilwis](http://www.deluxeblogtips.com)
-**Donate link:** http://www.deluxeblogtips.com/donate
 
 Inpect hidden information of your WordPress websites for debugging
 
@@ -18,64 +16,8 @@ The **Inspector** plugin is a tool for developers, which allows us to see hidden
 - View admin menu items
 - View registered scripts and styles
 
-[Project Page](http://www.deluxeblogtips.com/inspector) | [Donate](http://www.deluxeblogtips.com/donate)
-
 ## Installation
 
 1. Unzip the download package
 1. Upload `inspector` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-
-## Changelog
-
-### 1.2.8
-
-* Fix showing data via ajax
-* Use jQueryUI CDN instead
-
-### 1.2.7
-
-* Fix include warning
-
-### 1.2.6
-
-* Add screen information in help tab
-
-### 1.2.5
-
-* Add debug function
-
-### 1.2.3
-
-* Fix duplicate entries
-* Load class only in the back-end
-
-### 1.2.2
-
-* Fix adding menu
-* Change textdomain to simple string
-* Fix CSS
-
-### 1.2.1
-
-* Inspect post meta for all post types
-
-### 1.2
-
-* Add inspector for post meta
-* Update jQuery UI to 1.8.7 with Smoothness theme
-
-### 1.1
-
-* Add autocomplete feature for option name input box
-* Use nonces via localizing
-
-### 1.0.2
-
-* Show nonces using wp_nonce_field()
-* Add document for JS
-
-### 1.0.1
-
-* Use sanitize_text_field() to sanitize option name
-* Improve code of checking admin referrer

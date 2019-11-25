@@ -4,7 +4,7 @@ Donate link: https://paypal.me/anhtnt
 Tags: meta, option, custom field, admin screen, user information, inspector, debug, debugging tool, debugging
 Requires at least: 3.0
 Tested up to: 5.3
-Stable tag: 1.2.9
+Stable tag: 1.2.10
 
 Inpect hidden information of your WordPress websites for debugging
 
@@ -34,7 +34,7 @@ The **Inspector** plugin is a tool for developers, which allows us to see hidden
 
 == Changelog ==
 
-= 1.2.9 =
+= 1.2.10 =
 * Update to compatible with the latest version of WordPress.
 
 = 1.2.8 =

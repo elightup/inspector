@@ -3,7 +3,7 @@
  * Plugin Name: Inspector
  * Plugin URI:  https://elightup.com
  * Description: Inpect hidden information of your WordPress websites for debugging
- * Version:     1.2.9
+ * Version:     1.2.10
  * Author:      eLightUp
  * Author URI:  https://elightup.com
  */

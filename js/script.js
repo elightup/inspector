@@ -5,8 +5,7 @@ jQuery( function( $ )
 	// Autocomplete for object name
 	$( '#rwi-name' ).autocomplete( {
 		delay : 200,
-		source: function( request, response )
-		{
+		source: function( request, response ) {
 			var data = {
 				action     : 'rwi_autocomplete',
 				_ajax_nonce: RWI.nonce_autocomplete,
@@ -15,19 +14,20 @@ jQuery( function( $ )
 			};
 
 			// Add post ID if inspecting object type is post meta
-			if ( 'post_meta' == type )
+			if ( 'post_meta' == type ) {
 				data.post_id = $( '#post_ID' ).val();
+			}
 
-			$.post( ajaxurl, data, function( r )
-			{
+			$.post( ajaxurl, data, function( r ) {
 				response( r );
 			}, 'json' );
 		}
 	} );
 
 	// View object value
-	$( '#rwi-view' ).click( function()
-	{
+	$( '#rwi-view' ).click( function( e ) {
+		e.preventDefault();
+
 		var data = {
 			action  : 'rwi_view',
 			_wpnonce: RWI.nonce_view,
@@ -36,17 +36,15 @@ jQuery( function( $ )
 		};
 
 		// Add post ID if inspecting object type is post meta
-		if ( 'post_meta' === type )
+		if ( 'post_meta' === type ) {
 			data.post_id = $( '#post_ID' ).val();
+		}
 
 		request( data );
-
-		return false;
 	} );
 
 	// Delete object
-	$( '#rwi-delete' ).click( function()
-	{
+	$( '#rwi-delete' ).click( function() {
 		var data = {
 			action  : 'rwi_delete',
 			_wpnonce: RWI.nonce_delete,
@@ -55,8 +53,9 @@ jQuery( function( $ )
 		};
 
 		// Add post ID if inspecting object type is post meta
-		if ( 'post_meta' === type )
+		if ( 'post_meta' === type ) {
 			data.post_id = $( '#post_ID' ).val();
+		}
 
 		request( data );
 
@@ -65,19 +64,14 @@ jQuery( function( $ )
 
 	/**
 	 * Send POST request via Ajax
-	 *
 	 * @param data Request data
-	 *
-	 * @return void
 	 */
-	function request( data )
-	{
+	function request( data ) {
 		$( '.loading' ).show();
-		$.post( ajaxurl, data, function( r )
-		{
+		$.post( ajaxurl, data, function( r ) {
 			$( '.loading' ).hide();
 			showResult( r );
-		}, 'xml' );
+		}, 'json' );
 	}
 
 	/**
@@ -85,21 +79,16 @@ jQuery( function( $ )
 	 *
 	 * @param r
 	 */
-	function showResult( r )
-	{
-		var r = wpAjax.parseAjaxResponse( r, 'ajax-response' ),
-			$result = $( '#rwi-result' );
+	function showResult( r ) {
+		var $result = $( '#rwi-result' );
 
 		$result.hide().html( '' ).removeClass( 'error' ).removeClass( 'updated' );
-		if ( r.errors )
-		{
+		if ( ! r.success ) {
 			$result.addClass( 'error' );
-			r = r.responses[0].errors[0].message;
-		}
-		else
-		{
+			r = r.data;
+		} else {
 			$result.addClass( 'updated' );
-			r = r.responses[0].data
+			r = r.data
 		}
 		$( '<p>' ).append( r ).appendTo( $result );
 		$result.fadeIn();

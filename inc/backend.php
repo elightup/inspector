@@ -93,7 +93,7 @@ class RWI_Backend {
 		<p class="submit">
 			<?php submit_button( __( 'View', 'rwi' ), 'primary', '', false, array( 'id' => 'rwi-view') ); ?>
 			<?php submit_button( __( 'Delete', 'rwi' ), 'primary', '', false, array( 'id' => 'rwi-delete') ); ?>
-			<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="loading" />
+			<img src="<?= esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="loading" />
 		</p>
 
 		<div id="rwi-result"></div>
@@ -112,7 +112,7 @@ class RWI_Backend {
 
 		// Plugin script and style
 		wp_enqueue_style( 'inspector', RWI_CSS . 'style.css' );
-		wp_enqueue_script( 'inspector', RWI_JS . 'script.js', array( 'jquery-ui-autocomplete', 'wp-ajax-response' ) );
+		wp_enqueue_script( 'inspector', RWI_JS . 'script.js', array( 'jquery-ui-autocomplete' ) );
 		$params = array(
 			'nonce_view'		 => wp_create_nonce( 'inspector-view' ),
 			'nonce_delete'	     => wp_create_nonce( 'inspector-delete' ),
@@ -131,13 +131,13 @@ class RWI_Backend {
 
 		switch ( $type ) {
 			case 'post_meta':
-			$post_id = $_POST['post_id'];
-			$values  = $wpdb->get_col( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} WHERE post_id = '{$post_id}' AND meta_key LIKE '{$term}%'" );
-			break;
+				$post_id = $_POST['post_id'];
+				$values  = $wpdb->get_col( "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} WHERE post_id = '{$post_id}' AND meta_key LIKE '{$term}%'" );
+				break;
 			case 'option':
 			default:
-			$values = $wpdb->get_col( "SELECT DISTINCT option_name FROM {$wpdb->options} WHERE option_name LIKE '{$term}%'" );
-			break;
+				$values = $wpdb->get_col( "SELECT DISTINCT option_name FROM {$wpdb->options} WHERE option_name LIKE '{$term}%'" );
+				break;
 		}
 
 		die( json_encode( $values ) );
@@ -149,7 +149,7 @@ class RWI_Backend {
 		check_admin_referer( 'inspector-view' );
 
 		if ( empty( $_POST['name'] ) ) {
-			$this->ajax_response( __( 'Name is required.', 'rwi' ), 'error' );
+			wp_send_json_error( __( 'Name is required.', 'rwi' ) );
 		}
 
 		$name = sanitize_text_field( $_POST['name'] );
@@ -157,19 +157,21 @@ class RWI_Backend {
 
 		switch ( $type ) {
 			case 'post_meta':
-			$post_id = $_POST['post_id'];
+				$post_id = $_POST['post_id'];
 
-			$value = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = '{$post_id}' AND meta_key = '{$name}'" );
-			if ( empty( $value ) )
-				$this->ajax_response( __( 'Meta key does not exists.', 'rwi' ), 'error' );
-			elseif ( 1 === count( $value ) )
-				$value = array_pop( $value );
-			break;
+				$value = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = '{$post_id}' AND meta_key = '{$name}'" );
+				if ( empty( $value ) ) {
+					wp_send_json_error( __( 'Meta key does not exists.', 'rwi' ) );
+				} elseif ( 1 === count( $value ) ) {
+					$value = array_pop( $value );
+				}
+				break;
 			case 'option':
 			default:
-			if ( false === ( $value = get_option( $name ) ) )
-				$this->ajax_response( __( 'Option does not exists.', 'rwi' ), 'error' );
-			break;
+				if ( false === ( $value = get_option( $name ) ) ) {
+					wp_send_json_error( __( 'Option does not exists.', 'rwi' ) );
+				}
+				break;
 		}
 
 		$return = print_r( $value, true );
@@ -178,10 +180,10 @@ class RWI_Backend {
 		$unserialized = @unserialize( $value );
 		if ( 'b:0;' === $value || false !== $unserialized )
 		$return = "Value Type: SERIALIZED\n" . print_r( $unserialized, true );
+		$return = esc_html( $return );
 
 		$html = "<pre>{$return}</pre>";
-
-		$this->ajax_response( $html, 'success' );
+		wp_send_json_success( $html );
 	}
 
 	function wp_ajax_delete() {
@@ -190,7 +192,7 @@ class RWI_Backend {
 		check_admin_referer( 'inspector-delete' );
 
 		if ( empty( $_POST['name'] ) ) {
-			$this->ajax_response( __( 'Name is required.', 'rwi' ), 'error' );
+			wp_send_json_error( __( 'Name is required.', 'rwi' ) );
 		}
 
 		$name = sanitize_text_field( $_POST['name'] );
@@ -202,35 +204,22 @@ class RWI_Backend {
 
 			$value = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = '{$post_id}' AND meta_key = '{$name}'" );
 			if ( empty( $value ) ) {
-				$this->ajax_response( __( 'Meta key does not exists.', 'rwi' ), 'error' );
+				wp_send_json_error( __( 'Meta key does not exists.', 'rwi' ) );
 			}
 
 			delete_post_meta( $post_id, $name );
-			$this->ajax_response( __( 'Meta key deleted successfully.', 'rwi' ), 'success' );
+			wp_send_json_error( __( 'Meta key deleted successfully.', 'rwi' ) );
 			break;
 			case 'option':
 			default:
 			if ( false === ( $value = get_option( $name ) ) ) {
-				$this->ajax_response( __( 'Option does not exists.', 'rwi' ), 'error' );
+				wp_send_json_error( __( 'Option does not exists.', 'rwi' ) );
 			}
 
 			delete_option( $name );
-			$this->ajax_response( __( 'Option deleted successfully.', 'rwi' ), 'success' );
+			wp_send_json_success( __( 'Option deleted successfully.', 'rwi' ) );
 			break;
 		}
-	}
-
-	/**
-	 * Format Ajax response
-	 *
-	 * @param string $message
-	 * @param string $status
-	 */
-	function ajax_response( $message, $status ) {
-		$response = array( 'what' => 'rwi' );
-		$response['data'] = 'error' === $status ? new WP_Error( 'error', $message ) : $message;
-		$x = new WP_Ajax_Response( $response );
-		$x->send();
 	}
 
 	function screen_help( $contextual_help, $screen_id, $screen ) {
